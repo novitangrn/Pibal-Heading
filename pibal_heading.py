@@ -37,7 +37,6 @@ st.text_area("Heading:", value=output, height=200)
 # Copy button
 copy_button = st.button("Copy Output")
 
-# Copy output to clipboard when button is clicked
-if copy_button:
-    pyperclip.copy(output)
-    st.write("Output copied to clipboard!")
+if st.button("Copy Text"):
+  pyperclip.copy(output)
+  st.success("Text copied!")
