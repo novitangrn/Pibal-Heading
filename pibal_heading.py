@@ -47,6 +47,7 @@ if sidebar_option == "Manual":
 
     # Display generated output
     st.code(manual_output, language="markdown")
+    st.success("Heading PIBAL siap digunakan.")
 
 else:
     # Generate output automatically
@@ -54,6 +55,7 @@ else:
 
     # Display generated output
     st.code(automate_output, language="markdown")
+    st.success("Heading PIBAL siap digunakan.")
 
 # Display real-time datetime
 current_datetime = datetime.now()
