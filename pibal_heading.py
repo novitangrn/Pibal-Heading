@@ -1,26 +1,6 @@
 import streamlit as st
 from datetime import datetime
 
-def automate_generate_output():
-    date_now = datetime.now().strftime("%d")
-    hournow = datetime.now().hour
-
-    if 0 <= hournow < 12:
-        hour_now = "06"
-    elif 12 <= hournow < 24:
-        hour_now = "18"
-    else:
-        hour_now = "00"
-
-    UPID = "UPID53" + " " + "WARR" + " " + str(date_now).zfill(2) + str(hour_now).zfill(2) + "00"
-    PPAA = "PPAA" + " " + str(50 + int(date_now)) + str(hour_now).zfill(2) + "1" + " " + "96935"
-    UGID = "UGID53" + " " + "WARR" + " " + str(date_now).zfill(2) + str(hour_now).zfill(2) + "00"
-    PPBB = "PPBB" + " " + str(50 + int(date_now)) + str(hour_now).zfill(2) + "1" + " " + "96935"
-
-    output = UPID + "\n" + PPAA + "\n\nNNNN\n\n" + UGID + "\n" + PPBB + "\n\nNNNN"
-
-    return output
-
 def manual_generate_output(tanggal, jam):
     UPID = "UPID53" + " " + "WARR" + " " + str(tanggal).zfill(2) + str(jam).zfill(2) + "00"
     PPAA = "PPAA" + " " + str(50 + int(tanggal)) + str(jam).zfill(2) + "1" + " " + "96935"
@@ -30,6 +10,22 @@ def manual_generate_output(tanggal, jam):
     output = UPID + "\n" + PPAA + "\n\nNNNN\n\n" + UGID + "\n" + PPBB + "\n\nNNNN"
 
     return output
+
+def automate_generate_output():
+    tanggal = datetime.now().strftime("%d")
+    hour = datetime.now().hour
+
+    if 0 <= hour < 12:
+        jam = "06"
+    elif 12 <= hour < 24:
+        jam = "18"
+    else:
+        jam = "00"
+
+    output = manual_generate_output(tanggal, jam)
+
+    return output
+
 
 # Streamlit app
 st.title("Pilot Balloon Heading")
@@ -43,11 +39,14 @@ if sidebar_option == "Manual":
     jam = st.selectbox("Masukkan jam:", options=["06", "18"])
 
     # Generate output based on user input
-    manual_output = manual_generate_output(tanggal, jam)
+    date_now = datetime.now().strftime("%d")
+    if tanggal == date_now:
+        manual_output = manual_generate_output(tanggal, jam)
+        st.success("Heading siap digunakan.")
 
-    # Display generated output
-    st.code(manual_output, language="markdown")
-    st.success("Heading PIBAL siap digunakan.")
+    else:
+        manual_output = manual_generate_output(tanggal, jam)
+        st.error("Tanggal tidak sesuai dengan tanggal hari ini.")
 
 else:
     # Generate output automatically
