@@ -1,6 +1,5 @@
 import streamlit as st
 from datetime import datetime
-import pyperclip
 
 def generate_output():
     tanggal = datetime.now().strftime("%d")
@@ -34,9 +33,17 @@ st.write(f"Current Datetime: {formatted_datetime}")
 # Display generated output
 st.text_area("Heading:", value=output, height=200)
 
-# Copy button
-copy_button = st.button("Copy Output")
-
-if st.button("Copy Text"):
-  pyperclip.copy(output)
-  st.success("Text copied!")
+# JavaScript-based copy button (more reliable for web deployments)
+st.markdown(f"""
+<iframe srcdoc="<script>
+function copyToClipboard() {{
+  navigator.clipboard.writeText('{output}').then(() => {{
+    alert('Text copied to clipboard!');
+  }}, () => {{
+    alert('Failed to copy text.');
+  }});
+}}
+</script>
+<button onclick='copyToClipboard()'>Copy Output</button>">
+</iframe>
+""", unsafe_allow_html=True)
