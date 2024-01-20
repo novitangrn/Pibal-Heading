@@ -54,6 +54,8 @@ if sidebar_option == "Manual":
             st.code(manual_output, language="markdown")
             st.success("Heading siap digunakan.")
         else:
+            manual_output = manual_generate_output(tanggal, jam)
+            st.code(manual_output, language="markdown")
             st.error("Jam mungkin tidak sesuai dengan jam saat ini.")
 
     else:
