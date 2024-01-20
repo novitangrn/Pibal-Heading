@@ -1,5 +1,6 @@
 import streamlit as st
 from datetime import datetime
+import pyperclip
 
 def generate_output():
     tanggal = datetime.now().strftime("%d")
@@ -27,7 +28,16 @@ output = generate_output()
 
 # Display real-time datetime
 current_datetime = datetime.now()
-st.write(f"Current Datetime: {current_datetime}")
+formatted_datetime = current_datetime.strftime("%d-%m-%Y %H:%M")
+st.write(f"Current Datetime: {formatted_datetime}")
 
 # Display generated output
 st.text_area("Heading:", value=output, height=200)
+
+# Copy button
+copy_button = st.button("Copy Output")
+
+# Copy output to clipboard when button is clicked
+if copy_button:
+    pyperclip.copy(output)
+    st.write("Output copied to clipboard!")
