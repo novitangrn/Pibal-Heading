@@ -40,15 +40,26 @@ if sidebar_option == "Manual":
 
     # Generate output based on user input
     date_now = datetime.now().strftime("%d")
+    hour_now = datetime.now().hour
+    if 0 <= hour_now < 12:
+        hour = "06"
+    elif 12 <= hour_now < 24:
+        hour = "18"
+    else:
+        hour = "00"
+    
     if tanggal == int(date_now):
-        manual_output = manual_generate_output(tanggal, jam)
-        st.code(manual_output, language="markdown")
-        st.success("Heading siap digunakan.")
+        if jam == hour:
+            manual_output = manual_generate_output(tanggal, jam)
+            st.code(manual_output, language="markdown")
+            st.success("Heading siap digunakan.")
+        else:
+            st.error("Jam mungkin tidak sesuai dengan jam saat ini.")
 
     else:
         manual_output = manual_generate_output(tanggal, jam)
         st.code(manual_output, language="markdown")
-        st.error("Tanggal tidak sesuai dengan tanggal hari ini.")
+        st.error("Tanggal mungkin tidak sesuai dengan tanggal hari ini.")
 
 else:
     # Generate output automatically
