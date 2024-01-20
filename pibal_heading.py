@@ -8,7 +8,7 @@ def automate_generate_output():
     if 0 <= hournow < 12:
         hour_now = "06"
     elif 12 <= hournow < 24:
-        hour_now = "12"
+        hour_now = "18"
     else:
         hour_now = "00"
 
@@ -40,7 +40,7 @@ sidebar_option = st.sidebar.radio("Generate Output", ("Manual", "Automated"))
 if sidebar_option == "Manual":
     # User input
     tanggal = st.number_input("Masukkan tanggal (1-31):", min_value=1, max_value=31, value=1, step=1)
-    jam = st.selectbox("Masukkan jam:", options=["06", "12"])
+    jam = st.selectbox("Masukkan jam:", options=["06", "18"])
 
     # Generate output based on user input
     manual_output = manual_generate_output(tanggal, jam)
