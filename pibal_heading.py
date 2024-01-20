@@ -31,4 +31,4 @@ formatted_datetime = current_datetime.strftime("%d-%m-%Y %H:%M")
 st.write(f"Current Datetime: {formatted_datetime}")
 
 # Display generated output
-st.code(output, height=200)
+st.code(output, language="python", line_numbers=False)
