@@ -35,19 +35,4 @@ formatted_datetime = current_datetime.strftime("%d-%m-%Y %H:%M")
 st.write(f"Current Datetime: {formatted_datetime}")
 
 # Display generated output
-st.text_area("Heading:", value=output, height=200)
-
-copy_dict = {"content": output}
-
-copy_button = Button(label="Copy Output")
-copy_button.js_on_event("button_click", CustomJS(args=copy_dict, code="""
-    navigator.clipboard.writeText(content);
-    """))
-
-no_event = streamlit_bokeh_events(
-    copy_button,
-    events="GET_TEXT",
-    key="get_text",
-    refresh_on_update=True,
-    override_height=75,
-    debounce_time=0)
+st.code(output, height=200)
