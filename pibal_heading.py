@@ -1,5 +1,9 @@
 import streamlit as st
 from datetime import datetime
+from bokeh.models.widgets import Button
+from bokeh.models import CustomJS
+from streamlit_bokeh_events import streamlit_bokeh_events
+import pandas as pd
 
 def generate_output():
     tanggal = datetime.now().strftime("%d")
@@ -33,17 +37,17 @@ st.write(f"Current Datetime: {formatted_datetime}")
 # Display generated output
 st.text_area("Heading:", value=output, height=200)
 
-# JavaScript-based copy button (more reliable for web deployments)
-st.markdown(f"""
-<iframe srcdoc="<script>
-function copyToClipboard() {{
-  navigator.clipboard.writeText('{output}').then(() => {{
-    alert('Text copied to clipboard!');
-  }}, () => {{
-    alert('Failed to copy text.');
-  }});
-}}
-</script>
-<button onclick='copyToClipboard()'>Copy Output</button>">
-</iframe>
-""", unsafe_allow_html=True)
+copy_dict = {"content": output}
+
+copy_button = Button(label="Copy Output")
+copy_button.js_on_event("button_click", CustomJS(args=copy_dict, code="""
+    navigator.clipboard.writeText(content);
+    """))
+
+no_event = streamlit_bokeh_events(
+    copy_button,
+    events="GET_TEXT",
+    key="get_text",
+    refresh_on_update=True,
+    override_height=75,
+    debounce_time=0)
