@@ -35,12 +35,12 @@ def manual_generate_output(tanggal, jam):
 st.title("Pilot Balloon Heading")
 
 # Sidebar
-sidebar_option = st.sidebar.radio("Choose Output Generation", ("Manual", "Automated"))
+sidebar_option = st.sidebar.radio("Generate Output", ("Manual", "Automated"))
 
 if sidebar_option == "Manual":
     # User input
-    tanggal = st.number_input("Enter the tanggal (1-31):", min_value=1, max_value=31, value=1, step=1)
-    jam = st.selectbox("Select the jam:", options=["06", "12"])
+    tanggal = st.number_input("Masukkan tanggal (1-31):", min_value=1, max_value=31, value=1, step=1)
+    jam = st.selectbox("Masukkan jam:", options=["06", "12"])
 
     # Generate output based on user input
     manual_output = manual_generate_output(tanggal, jam)
