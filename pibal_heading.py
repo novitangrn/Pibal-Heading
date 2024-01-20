@@ -40,7 +40,7 @@ if sidebar_option == "Manual":
 
     # Generate output based on user input
     date_now = datetime.now().strftime("%d")
-    if tanggal == date_now:
+    if tanggal == int(date_now):
         manual_output = manual_generate_output(tanggal, jam)
         st.success("Heading siap digunakan.")
 
