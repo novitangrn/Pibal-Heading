@@ -22,6 +22,12 @@ def generate_output():
     return output
 
 # Streamlit app
-st.title("Generate Output")
+st.title("Pilot Balloon Heading")
 output = generate_output()
-st.text_area("Output:", value=output, height=200)
+
+# Display real-time datetime
+current_datetime = datetime.now()
+st.write(f"Current Datetime: {current_datetime}")
+
+# Display generated output
+st.text_area("Heading:", value=output, height=200)
