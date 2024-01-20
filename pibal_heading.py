@@ -42,10 +42,12 @@ if sidebar_option == "Manual":
     date_now = datetime.now().strftime("%d")
     if tanggal == int(date_now):
         manual_output = manual_generate_output(tanggal, jam)
+        st.code(manual_output, language="markdown")
         st.success("Heading siap digunakan.")
 
     else:
         manual_output = manual_generate_output(tanggal, jam)
+        st.code(manual_output, language="markdown")
         st.error("Tanggal tidak sesuai dengan tanggal hari ini.")
 
 else:
